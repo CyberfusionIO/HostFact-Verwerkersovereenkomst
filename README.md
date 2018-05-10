@@ -5,6 +5,10 @@ This HostFact plugin does three things:
 - once the debtor has accepted the DPA, an email will be sent via HostFact;
 - additionally, as long as a debtor hasn't signed the DPA, a message can be shown in the `klantenpaneel`
 
+# Screenshot
+
+![DPA plugin](https://i.imgur.com/wtMLjBs.png)
+
 # Install
 
 In /Pro:
