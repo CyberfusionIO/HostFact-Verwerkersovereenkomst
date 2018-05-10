@@ -5,11 +5,19 @@ This HostFact plugin does three things:
 - once the debtor has accepted the DPA, an email will be sent via HostFact;
 - additionally, as long as a debtor hasn't signed the DPA, a message can be shown in the `klantenpaneel`
 
-# Screenshot
+# Screenshots
+
+Plugin:
 
 ![DPA plugin](https://i.imgur.com/wtMLjBs.png)
 
+Asking debtors to accept the DPA plugin throughout the HostFact `klantenpaneel`:
+
+![Asking debtors to accept](https://i.imgur.com/LX3OR9A.png)
+
 # Install
+
+Note: this documentation, and the plugin, assumes `klantenpaneel` as the directory that the `klantenpaneel` is stored in. If you have it in a different directory, or in `/`, simply `grep` through the code and remove or alter `klantenpaneel` so that only `dpa/` or `/dpa` is left.
 
 In /Pro:
 
@@ -33,7 +41,7 @@ You can use the following code in your custom/views/header.phtml to show a messa
     $dpa = new Dpa\Dpa_Model();
 
     if ($dpa->getPreference() == false && strpos('https://' . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'], 'dpa') == false) {
-        echo '<div class="alert alert-warning" role="alert"><p>'.__('dpa not accepted').' <a href="/dpa">'.__('accept').'</a></p></div>';
+        echo '<div class="alert alert-warning" role="alert"><p>'.__('dpa not accepted').' <a href="/klantenpaneel/dpa">'.__('accept').'</a></p></div>';
     }
     ?>
 
