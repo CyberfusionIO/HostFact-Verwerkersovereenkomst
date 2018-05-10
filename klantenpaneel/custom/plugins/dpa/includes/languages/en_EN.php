@@ -18,3 +18,4 @@ $LANG['success']	= 'Successfully accepted Data Processing Agreement.';
 $LANG['not checked']	= 'Data Processing Agreement was not accepted.';
 $LANG['already agreed'] = 'The Data Processing Agreement has already been accepted for this account.';
 $LANG['agree to dpa']	= 'I agree to the Data Processing Agreement.';
+$LANG['open pdf']       = 'View and download';
