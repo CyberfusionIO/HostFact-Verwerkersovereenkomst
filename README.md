@@ -47,8 +47,13 @@ You can use the following code in your custom/views/header.phtml to show a messa
 
 # Delete preference
 
-If you're testing and you need to delete the custom field value for a debtor, you can either delete the value, but you can also use this SQL query:
+If you're testing and you need to delete the custom field value for a debtor, you can either delete the value or use this SQL query:
 
     delete FROM `HostFact_Debtor_Custom_Values` WHERE ReferenceID = {DEBTORID} and FieldID = {FIELDID};
 
 Replace {DEBTORID} with the debtor ID (NOT the debtor username!) and {FIELDID} with the same field ID that you set in the code.
+
+# Known bug
+
+When a user resets their password and logs in after doing so, the message above (under "Optional: Ask debtors to sign") is not shown, and the module says that the DPA has already been signed for that account. It looks like this is a bug within HostFact, where it's not properly handling custom fields API output.
+I could fix that by using an SQL query instead of using the internal API, but I'm not very eager to use that workaround.
