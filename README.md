@@ -55,5 +55,4 @@ Replace {DEBTORID} with the debtor ID (NOT the debtor username!) and {FIELDID} w
 
 # Known bug
 
-When a user resets their password and logs in after doing so, the message above (under "Optional: Ask debtors to sign") is not shown, and the module says that the DPA has already been signed for that account. It looks like this is a bug within HostFact, where it's not properly handling custom fields API output.
-I could fix that by using an SQL query instead of using the internal API, but I'm not very eager to use that workaround.
+When a user resets their password and logs in after doing so, the message above (under "Optional: Ask debtors to sign") is not shown, and the module says that the DPA has already been signed for that account. That is because the custom field for that debtor is created and we only check if the custom field was created; not what it contains. I'm not aware of any good method to fix that, currently.
