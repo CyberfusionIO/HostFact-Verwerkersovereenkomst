@@ -21,7 +21,12 @@ class Dpa_Model extends \Base_Model
 	}
 	
 	public function isActivated() {
-		return true;
+		if (file_exists('../docs/dpa.pdf')) {
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 
 	/**
@@ -54,7 +59,7 @@ class Dpa_Model extends \Base_Model
 		$debtor = $this->getCurrentDebtor();
 
 		$response = $this->APIRequest('debtor', 'edit', array('Identifier' => $debtor, 'CustomFields' => array('DPA' => 'yes')));
-		
+
 		$this->sendEmail($debtor);
 
 		return $response;

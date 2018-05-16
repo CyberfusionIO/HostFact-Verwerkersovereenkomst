@@ -64,11 +64,13 @@ class Dpa_Controller extends \Base_Controller
 
 	public function pdf() {
 		$file = realpath(__DIR__ . '/../docs/dpa.pdf');
+
 		header('Content-type: application/pdf');
 		header('Content-Disposition: inline; filename="' . 'Verwerkersovereenkomst' . '"');
 		header('Content-Transfer-Encoding: binary');
 		header('Content-Length: ' . filesize($file));
 		header('Accept-Ranges: bytes');
-       	@readfile($file);
+
+	       	@readfile($file);
    }
 }

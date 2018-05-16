@@ -8,7 +8,7 @@ This HostFact plugin does three things:
 # Todo
 - [ ] Save date and IP address instead of 'yes' in custom field
 - [ ] Do error handling before sending confirmation email to the debtor
-- [ ] Create config field
+- [ ] Create config file
 
 # Screenshots
 
@@ -27,15 +27,13 @@ Note: this documentation, and the plugin, assumes `klantenpaneel` as the directo
 In /Pro:
 
 - Create a custom field in HostFact on /Pro/customclientfields.php?page=add . Use 'DPA' in capitals (without '') as field code ('Veldcode');
-- Create an empty email template by navigating to /Pro/templates.php?page=email, clicking 'Template toevoegen', selecting 'een standaard template' under "Wat voor template wilt u toevoegen?" and clicking 'Bevestigen'. Create a subject and a body (this will be sent to your customer) such as "Thank you for confirming. The DPA has been signed." Once it's saved, click on the newly created email template and look at the email template in the URL. It's shown in the URL like: &id=6 (the ID is 6, write that down)
+- Create an email template by navigating to /Pro/templates.php?page=email, clicking 'Template toevoegen', selecting 'een standaard template' under "Wat voor template wilt u toevoegen?" and clicking 'Bevestigen'. Create a subject and a body (this will be sent to your customer) such as "Thank you for confirming. The DPA has been signed." Once it's saved, click on the newly created email template and look at the email template in the URL. It's shown in the URL like: &id=6 (the ID is 6, write that down)
 
 In FTP:
 
 - Upload this plugin to klantenpaneel/custom/plugins
-- In the file models/dpa_model.php you should change "FieldID = REPLACEME" (line 76) to "FieldID = x" where x is the appropriate field code. The field code is shown in the URL when you created your custom field in /Pro (last number in the URL);
-- In the file models/dpa_model.php you should change 'Subject' (line 50) to the subject that you want to use for the email a debtor receives once the preference has been set on their account;
-- In the file models/dpa_model.php you should change 'TemplateID' (line 51) to the template ID for the email template that you created a few steps ago;
-- In the file models/dpa_model.php you should change 'Message' to the email that you want to send to the debtor;
+- In the file 'config.php', change the $fieldid variable. The field ID is shown in the URL when you create or edit your custom field in /Pro (last number in the URL);
+- In the file 'config.php', change the $templateid variable to the template ID for the email template that you created a few steps ago;
 - Finally, upload a PDF containing your DPA to the folder docs/ called 'dpa.pdf'
 
 # Optional: Ask debtors to sign
