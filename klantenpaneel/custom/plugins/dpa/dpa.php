@@ -33,15 +33,8 @@ class Dpa
 
 	function activatePlugin()
 	{
-		// User has uploaded the module to a special klantenpaneel folder
-		if (file_exists('../../../../config.php')) {
-	        	include_once('../../../../config.php');
-			return TRUE;
-		}
-
-		// User has uploaded the module to the root folder
-		elseif (file_exists('../../../config.php')) {
-	        	include_once('../../../config.php');
+		// User has uploaded the module to a special 'klantenpaneel' folder or root folder
+		if (file_exists('../../../../config.php') || file_exists('../../../config.php')) {
 			return TRUE;
 		}
 

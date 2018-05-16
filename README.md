@@ -8,7 +8,7 @@ This HostFact plugin does three things:
 # Todo
 - [ ] Save date and IP address instead of 'yes' in custom field
 - [ ] Do error handling before sending confirmation email to the debtor
-- [ ] Create config file
+- [x] Create config file
 
 # Screenshots
 
