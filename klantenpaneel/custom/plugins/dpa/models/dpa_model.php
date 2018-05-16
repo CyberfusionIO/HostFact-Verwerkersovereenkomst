@@ -75,8 +75,6 @@ class Dpa_Model extends \Base_Model
 	}
 
 	public function getPreference() {
-		$debtor = $this->getCurrentDebtor();
-
-		return $this->checkExists($debtor);
+		return $this->checkExists($this->getCurrentDebtor());
 	}
 }
