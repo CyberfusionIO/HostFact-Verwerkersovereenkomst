@@ -22,7 +22,7 @@ Note: this documentation, and the plugin, assumes `klantenpaneel` as the directo
 In /Pro:
 
 - Create a custom field in HostFact on /Pro/customclientfields.php?page=add . Use 'DPA' in capitals (without '') as field code ('Veldcode');
-- Create an empty email template by navigating to /Pro/templates.php?page=email, clicking 'Template toevoegen', selecting 'een standaard template' under "Wat voor template wilt u toevoegen?" and clicking 'Bevestigen'. As both template name and subject, use 'dummy'. Leave the body empty. Once it's saved, click on the newly created email template and look at the email template in the URL. It's shown in the URL like: &id=6 (the ID is 6, write that down)
+- Create an empty email template by navigating to /Pro/templates.php?page=email, clicking 'Template toevoegen', selecting 'een standaard template' under "Wat voor template wilt u toevoegen?" and clicking 'Bevestigen'. Create a subject and a body (this will be sent to your customer) such as "Thank you for confirming. The DPA has been signed." Once it's saved, click on the newly created email template and look at the email template in the URL. It's shown in the URL like: &id=6 (the ID is 6, write that down)
 
 In FTP:
 

@@ -42,9 +42,7 @@ class Dpa_Model extends \Base_Model
 	public function sendEmail($debtorid) {		
 		$debtorParams = array(
 			'Identifier'	=> $debtorid,
-			'Subject'       => 'Replace me',
 			'TemplateID'	=> 'Replace me',
-			'Message'	=> 'Replace me',
 		);
 
 		$response = $this->APIRequest('debtor', 'sendemail', $debtorParams);
