@@ -32,8 +32,8 @@ In /Pro:
 In FTP:
 
 - Upload this plugin to klantenpaneel/custom/plugins
-- In the file 'config.php', change the $fieldid variable. The field ID is shown in the URL when you create or edit your custom field in /Pro (last number in the URL);
-- In the file 'config.php', change the $templateid variable to the template ID for the email template that you created a few steps ago;
+- In the file 'klantenpaneel/custom/plugins/dpa', change the $fieldid variable. The field ID is shown in the URL when you create or edit your custom field in /Pro (last number in the URL);
+- In the file 'klantenpaneel/custom/plugins/dpa', change the $templateid variable to the template ID for the email template that you created a few steps ago;
 - Finally, upload a PDF containing your DPA to the folder docs/ called 'dpa.pdf'
 
 # Optional: Ask debtors to sign

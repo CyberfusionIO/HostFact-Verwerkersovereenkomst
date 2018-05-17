@@ -6,13 +6,8 @@ use Settings_Model;
 use Cache;
 
 // User has uploaded the module to a special klantenpaneel folder
-if (file_exists('../../../../config.php')) {
-	include_once('../../../../config.php');
-}
-
-// User has uploaded the module to the root folder
-elseif (file_exists('../../../config.php')) {
-	include_once('../../../config.php');
+if (file_exists('../config.php')) {
+	include_once('../config.php');
 }
 
 class Dpa_Model extends \Base_Model

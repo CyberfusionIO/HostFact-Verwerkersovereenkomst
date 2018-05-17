@@ -34,7 +34,7 @@ class Dpa
 	function activatePlugin()
 	{
 		// User has uploaded the module to a special 'klantenpaneel' folder or root folder
-		if (file_exists('../../../../config.php') || file_exists('../../../config.php')) {
+		if (file_exists('config.php')) {
 			return TRUE;
 		}
 
