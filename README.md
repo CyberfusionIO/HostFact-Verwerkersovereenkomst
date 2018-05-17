@@ -23,6 +23,7 @@ Asking debtors to accept the DPA plugin throughout the HostFact `klantenpaneel`:
 # Install
 
 Note: this documentation, and the plugin, assumes `klantenpaneel` as the directory that the `klantenpaneel` is stored in. If you have it in a different directory, or in `/`, simply `grep` through the code and remove or alter `klantenpaneel` so that only `dpa/` or `/dpa` is left.
+Note 2: if no PDF has been uploaded called 'dpa.pdf' in the 'docs' folder, visitors of the `klantenpaneel` will see a message saying that the DPA can be signed soon.
 
 In /Pro:
 
@@ -32,8 +33,8 @@ In /Pro:
 In FTP:
 
 - Upload this plugin to klantenpaneel/custom/plugins
-- In the file 'klantenpaneel/custom/plugins/dpa', change the $fieldid variable. The field ID is shown in the URL when you create or edit your custom field in /Pro (last number in the URL);
-- In the file 'klantenpaneel/custom/plugins/dpa', change the $templateid variable to the template ID for the email template that you created a few steps ago;
+- In the file 'klantenpaneel/custom/plugins/dpa/config.php', change the $fieldid variable. The field ID is shown in the URL when you create or edit your custom field in /Pro (last number in the URL);
+- In the file 'klantenpaneel/custom/plugins/dpa/config.php', change the $templateid variable to the template ID for the email template that you created a few steps ago;
 - Finally, upload a PDF containing your DPA to the folder docs/ called 'dpa.pdf'
 
 # Optional: Ask debtors to sign
