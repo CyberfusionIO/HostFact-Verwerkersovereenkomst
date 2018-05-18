@@ -11,81 +11,84 @@ require_once('../config.php');
 class Dpa_Model extends \Base_Model
 {
 
-	public $Error;
-	public $Warning;
-	public $Success;
+    public $Error;
+    public $Warning;
+    public $Success;
 
-	public $db;
+    public $db;
 
-	public function __construct()
-	{
-		$this->Error = $this->Warning = $this->Success = array();
-		$this->db = new \Database_Model;
-	}
-	
-	public function isActivated() {
-		if (file_exists('../docs/dpa.pdf')) {
-			return true;
-		}
-		else {
-			return false;
-		}
-	}
+    public function __construct()
+    {
+        $this->Error = $this->Warning = $this->Success = array();
+        $this->db = new \Database_Model;
+    }
 
-	/**
-	 * Get current Debtor identifier
-	 * @return int
-	 */
-	public function getCurrentDebtor()
-	{
-		$debtor_model = new \Debtor_Model();
-		$debtor_model->show();
-		if (empty($debtor_model->Identifier)) {
-			return false;
-		}
+    public function isActivated()
+    {
+        if (file_exists('../docs/dpa.pdf')) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
-		return $debtor_model->Identifier;
-	}
-	
-	public function sendEmail($debtorid) {
-	    global $templateid;
-		$debtorParams = array(
-			'Identifier'	=> $debtorid,
-			'TemplateID'	=> $templateid,
-		);
+    public function updatePreference()
+    {
+        $debtor = $this->getCurrentDebtor();
 
-		$response = $this->APIRequest('debtor', 'sendemail', $debtorParams);
+        $response = $this->APIRequest('debtor', 'edit', array('Identifier' => $debtor, 'CustomFields' => array('DPA' => 'yes')));
 
-		return $response;
-	}
+        $this->sendEmail($debtor);
 
-	public function updatePreference() {
-		$debtor = $this->getCurrentDebtor();
+        return $response;
+    }
 
-		$response = $this->APIRequest('debtor', 'edit', array('Identifier' => $debtor, 'CustomFields' => array('DPA' => 'yes')));
+    /**
+     * Get current Debtor identifier
+     * @return int
+     */
+    public function getCurrentDebtor()
+    {
+        $debtor_model = new \Debtor_Model();
+        $debtor_model->show();
+        if (empty($debtor_model->Identifier)) {
+            return false;
+        }
 
-		$this->sendEmail($debtor);
+        return $debtor_model->Identifier;
+    }
 
-		return $response;
-	}
+    public function sendEmail($debtorid)
+    {
+        global $templateid;
+        $debtorParams = array(
+            'Identifier' => $debtorid,
+            'TemplateID' => $templateid,
+        );
 
-	public function checkExists($debtor) {
-	    global $fieldid;
-		$query = "SELECT Value FROM `HostFact_Debtor_Custom_Values` WHERE ReferenceID = :debtorid and FieldID = :fieldid";
-		$pdo = $this->db->prepare($query);
-		$pdo->bindParam(':debtorid', $debtor);
-		$pdo->bindParam(':fieldid', $fieldid);
-		$pdo->execute();
-		// true = result found
-		if ($pdo->rowCount() > 0) {
-			return true;
-		}
-		else {
-			return false;
-		}
-	}
+        $response = $this->APIRequest('debtor', 'sendemail', $debtorParams);
 
-	public function getPreference() {
-		return $this->checkExists($this->getCurrentDebtor());
-	}
+        return $response;
+    }
+
+    public function getPreference()
+    {
+        return $this->checkExists($this->getCurrentDebtor());
+    }
+
+    public function checkExists($debtor)
+    {
+        global $fieldid;
+        $query = "SELECT count(Value) FROM `HostFact_Debtor_Custom_Values` WHERE ReferenceID = :debtorid and FieldID = :fieldid";
+        $pdo = $this->db->prepare($query);
+        $pdo->bindParam(':debtorid', $debtor);
+        $pdo->bindParam(':fieldid', $fieldid);
+        $pdo->execute();
+        // true = result found
+        if ($pdo->fetchColumn() > 0 && $pdo->errorCode == 00000) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
