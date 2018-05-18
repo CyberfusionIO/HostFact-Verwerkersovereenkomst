@@ -38,28 +38,17 @@ class Dpa_Controller extends \Base_Controller
 			if (isset($_POST['agree'])) {
 				$this->Dpa->Success[] = __('success');
 				$this->Dpa->updatePreference();
-				$this->Template->parseMessage($this->Dpa);
-				$this->Template->Dpa = $this->Dpa->getPreference();
-				$this->Template->show('dpa.list');
 			}
 			elseif ($_SERVER['REQUEST_METHOD'] === 'POST' && !(isset($_POST['agree']))) {
 				$this->Dpa->Warning[] = __('not checked');
-				$this->Template->parseMessage($this->Dpa);
-				$this->Template->Dpa = $this->Dpa->getPreference();
-				$this->Template->show('dpa.list');
 			}
 			elseif ($this->Template->preference == true) {
 				$this->Dpa->Warning[] = __('already agreed');
-				$this->Template->parseMessage($this->Dpa);
-				$this->Template->Dpa = $this->Dpa->getPreference();
-				$this->Template->show('dpa.list');
 			}
-			else {
-				$this->Template->parseMessage($this->Dpa);
-				$this->Template->Dpa = $this->Dpa->getPreference();
-				$this->Template->show('dpa.list');
-			}
-		}
+            $this->Template->parseMessage($this->Dpa);
+            $this->Template->Dpa = $this->Dpa->getPreference();
+            $this->Template->show('dpa.list');
+        }
 	}
 
 	public function pdf() {
