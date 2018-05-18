@@ -5,6 +5,11 @@ namespace Dpa;
 use Settings_Model;
 use Cache;
 
+// User has uploaded the module to a special klantenpaneel folder
+if (file_exists('../config.php')) {
+	include_once('../config.php');
+}
+
 class Dpa_Model extends \Base_Model
 {
 
@@ -21,7 +26,12 @@ class Dpa_Model extends \Base_Model
 	}
 	
 	public function isActivated() {
-		return true;
+		if (file_exists('../docs/dpa.pdf')) {
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 
 	/**
@@ -42,9 +52,7 @@ class Dpa_Model extends \Base_Model
 	public function sendEmail($debtorid) {		
 		$debtorParams = array(
 			'Identifier'	=> $debtorid,
-			'Subject'       => 'Replace me',
-			'TemplateID'	=> 'Replace me',
-			'Message'	=> 'Replace me',
+			'TemplateID'	=> $templateid,
 		);
 
 		$response = $this->APIRequest('debtor', 'sendemail', $debtorParams);
@@ -56,16 +64,17 @@ class Dpa_Model extends \Base_Model
 		$debtor = $this->getCurrentDebtor();
 
 		$response = $this->APIRequest('debtor', 'edit', array('Identifier' => $debtor, 'CustomFields' => array('DPA' => 'yes')));
-		
+
 		$this->sendEmail($debtor);
 
 		return $response;
 	}
 
 	public function checkExists($debtor) {
-		$query = "SELECT Value FROM `HostFact_Debtor_Custom_Values` WHERE ReferenceID = :id and FieldID = REPLACEME";
+		$query = "SELECT Value FROM `HostFact_Debtor_Custom_Values` WHERE ReferenceID = :debtorid and FieldID = :fieldid";
 		$pdo = $this->db->prepare($query);
-		$pdo->bindParam(':id', $debtor);
+		$pdo->bindParam(':debtorid', $debtor);
+		$pdo->bindParam(':fieldid', $fieldid);
 		$pdo->execute();
 		// true = result found
 		if ($pdo->rowCount() > 0) {
@@ -77,8 +86,6 @@ class Dpa_Model extends \Base_Model
 	}
 
 	public function getPreference() {
-		$debtor = $this->getCurrentDebtor();
-
-		return $this->checkExists($debtor);
+		return $this->checkExists($this->getCurrentDebtor());
 	}
 }

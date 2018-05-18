@@ -5,6 +5,11 @@ This HostFact plugin does three things:
 - once the debtor has accepted the DPA, an email will be sent via HostFact;
 - additionally, as long as a debtor hasn't signed the DPA, a message can be shown in the `klantenpaneel`
 
+# Todo
+- [ ] Save date and IP address instead of 'yes' in custom field
+- [ ] Do error handling before sending confirmation email to the debtor
+- [x] Create config file
+
 # Screenshots
 
 Plugin:
@@ -18,19 +23,18 @@ Asking debtors to accept the DPA plugin throughout the HostFact `klantenpaneel`:
 # Install
 
 Note: this documentation, and the plugin, assumes `klantenpaneel` as the directory that the `klantenpaneel` is stored in. If you have it in a different directory, or in `/`, simply `grep` through the code and remove or alter `klantenpaneel` so that only `dpa/` or `/dpa` is left.
+Note 2: if no PDF has been uploaded called 'dpa.pdf' in the 'docs' folder, visitors of the `klantenpaneel` will see a message saying that the DPA can be signed soon.
 
 In /Pro:
 
 - Create a custom field in HostFact on /Pro/customclientfields.php?page=add . Use 'DPA' in capitals (without '') as field code ('Veldcode');
-- Create an empty email template by navigating to /Pro/templates.php?page=email, clicking 'Template toevoegen', selecting 'een standaard template' under "Wat voor template wilt u toevoegen?" and clicking 'Bevestigen'. As both template name and subject, use 'dummy'. Leave the body empty. Once it's saved, click on the newly created email template and look at the email template in the URL. It's shown in the URL like: &id=6 (the ID is 6, write that down)
+- Create an email template by navigating to /Pro/templates.php?page=email, clicking 'Template toevoegen', selecting 'een standaard template' under "Wat voor template wilt u toevoegen?" and clicking 'Bevestigen'. Create a subject and a body (this will be sent to your customer) such as "Thank you for confirming. The DPA has been signed." Once it's saved, click on the newly created email template and look at the email template in the URL. It's shown in the URL like: &id=6 (the ID is 6, write that down)
 
 In FTP:
 
 - Upload this plugin to klantenpaneel/custom/plugins
-- In the file models/dpa_model.php you should change "FieldID = REPLACEME" (line 76) to "FieldID = x" where x is the appropriate field code. The field code is shown in the URL when you created your custom field in /Pro (last number in the URL);
-- In the file models/dpa_model.php you should change 'Subject' (line 50) to the subject that you want to use for the email a debtor receives once the preference has been set on their account;
-- In the file models/dpa_model.php you should change 'TemplateID' (line 51) to the template ID for the email template that you created a few steps ago;
-- In the file models/dpa_model.php you should change 'Message' to the email that you want to send to the debtor;
+- In the file 'klantenpaneel/custom/plugins/dpa/config.php', change the $fieldid variable. The field ID is shown in the URL when you create or edit your custom field in /Pro (last number in the URL);
+- In the file 'klantenpaneel/custom/plugins/dpa/config.php', change the $templateid variable to the template ID for the email template that you created a few steps ago;
 - Finally, upload a PDF containing your DPA to the folder docs/ called 'dpa.pdf'
 
 # Optional: Ask debtors to sign
@@ -47,8 +51,12 @@ You can use the following code in your custom/views/header.phtml to show a messa
 
 # Delete preference
 
-If you're testing and you need to delete the custom field value for a debtor, you can either delete the value, but you can also use this SQL query:
+If you're testing and you need to delete the custom field value for a debtor, you can either delete the value or use this SQL query:
 
     delete FROM `HostFact_Debtor_Custom_Values` WHERE ReferenceID = {DEBTORID} and FieldID = {FIELDID};
 
 Replace {DEBTORID} with the debtor ID (NOT the debtor username!) and {FIELDID} with the same field ID that you set in the code.
+
+# Known bug
+
+When a user resets their password and logs in after doing so, the message above (under "Optional: Ask debtors to sign") is not shown, and the module says that the DPA has already been signed for that account. That is because the custom field for that debtor is created and we only check if the custom field was created; not what it contains. I'm not aware of any good method to fix that, currently.
