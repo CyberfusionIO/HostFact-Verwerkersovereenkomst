@@ -6,9 +6,7 @@ use Settings_Model;
 use Cache;
 
 // User has uploaded the module to a special klantenpaneel folder
-if (file_exists('../config.php')) {
-	include_once('../config.php');
-}
+require_once('../config.php');
 
 class Dpa_Model extends \Base_Model
 {
@@ -49,7 +47,8 @@ class Dpa_Model extends \Base_Model
 		return $debtor_model->Identifier;
 	}
 	
-	public function sendEmail($debtorid) {		
+	public function sendEmail($debtorid) {
+	    global $templateid;
 		$debtorParams = array(
 			'Identifier'	=> $debtorid,
 			'TemplateID'	=> $templateid,
@@ -71,6 +70,7 @@ class Dpa_Model extends \Base_Model
 	}
 
 	public function checkExists($debtor) {
+	    global $fieldid;
 		$query = "SELECT Value FROM `HostFact_Debtor_Custom_Values` WHERE ReferenceID = :debtorid and FieldID = :fieldid";
 		$pdo = $this->db->prepare($query);
 		$pdo->bindParam(':debtorid', $debtor);
