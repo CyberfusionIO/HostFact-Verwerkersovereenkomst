@@ -36,9 +36,12 @@ class Dpa_Model extends \Base_Model
     {
         $debtor = $this->getCurrentDebtor();
 
-        $response = $this->APIRequest('debtor', 'edit', array('Identifier' => $debtor, 'CustomFields' => array('DPA' => 'yes')));
-
-        $this->sendEmail($debtor);
+        $response = $this->APIRequest('debtor', 'edit', ['Identifier' => $debtor, 'CustomFields' => ['DPA' => 'yes', 'IP' => $_SERVER['REMOTE_ADDR'], 'DT' => date('d-m-Y H:i')]]);
+        if($response['status'] == 'success') {
+            $this->sendEmail($debtor);
+        } else {
+            $this->Error[] = __('faulty');
+        }
 
         return $response;
     }

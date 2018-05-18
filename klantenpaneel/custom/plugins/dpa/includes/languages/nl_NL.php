@@ -19,3 +19,4 @@ $LANG['not checked']	= 'Er is geen akkoord gegeven op de verwerkersovereenkomst.
 $LANG['already agreed'] = 'De verwerkersovereenkomst is al geaccepteerd voor dit account.';
 $LANG['agree to dpa']	= 'Ik ga akkoord met de verwerkersovereenkomst.';
 $LANG['open pdf']	= 'Bekijken en downloaden';
+$LANG['faulty']     = 'Er is een fout opgetreden bij het akkoord gaan van de verwerkersovereenkomst.';
