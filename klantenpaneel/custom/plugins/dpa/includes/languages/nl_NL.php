@@ -5,7 +5,7 @@ $LANG = array();
 $LANG['mainmenu Dpa']                   = 'Verwerkersovereenkomst';
 
 /** URLS */
-$LANG['url']['dpa']                     = 'dpa';
+$LANG['url']['dpa']                     = 'verwerkersovereenkomst';
 
 /** PAGES */
 $LANG['Dpa title']                      = 'Verwerkersovereenkomst';
