@@ -16,27 +16,26 @@ Plugin:
 
 ![DPA plugin](https://i.imgur.com/wtMLjBs.png)
 
+
+# Installation steps
+
+HostFact:
+1. Create a custom text field, for example 'DPA', in HostFact by navigation to /Pro/customclientfields.php?page=add. Write down your entered 'Veldcode'.
+2. Create an email template by navigating to /Pro/templates.php?page=email. This email will be send to your debtor after agreeing. Once it's saved, click on the newly created email template. In the URL you find the template id. It's shown in the URL like: &id=6. The ID is 6, write that down.
+
+FTP:
+1. Download and unpack the ZIP: https://github.com/CyberfusionNL/HostFact-Verwerkersovereenkomst/archive/master.zip
+2. After unpacking the ZIP click on the folder 'klantenpaneel', continue clicking on the folder 'custom'.
+3. Upload the complete 'plugins' folder to your your own '/klantenpaneel/custom/' directory on your server.
+4. Open the config file: '/klantenpaneel/custom/plugins/dpa/config.php'. Change all 'replaceme' by the correct value.
+5. Finally, upload the PDF containing your DPA to the folder '/klantenpaneel/custom/plugins/dpa/docs/'. Make sure the filename is exactly as entered in your config file.
+
+Note 2: if no PDF has been uploaded 'docs' folder and entered in the config file, visitors of the `klantenpaneel` will see a message saying that the DPA can be signed soon.
+
+# Optional: Ask debtors to sign
 Asking debtors to accept the DPA plugin throughout the HostFact `klantenpaneel`:
 
 ![Asking debtors to accept](https://i.imgur.com/LX3OR9A.png)
-
-# Install
-
-Note: this documentation, and the plugin, assumes `klantenpaneel` as the directory that the `klantenpaneel` is stored in. If you have it in a different directory, or in `/`, simply `grep` through the code and remove or alter `klantenpaneel` so that only `dpa/` or `/dpa` is left.
-Note 2: if no PDF has been uploaded 'docs' folder and entered in the config file, visitors of the `klantenpaneel` will see a message saying that the DPA can be signed soon.
-
-In /Pro:
-
-- Create a custom field in HostFact on /Pro/customclientfields.php?page=add . For example 'DPA' in capitals (without '') as name and field code ('Veldcode');
-- Create an email template by navigating to /Pro/templates.php?page=email, clicking 'Template toevoegen', selecting 'een standaard template' under "Wat voor template wilt u toevoegen?" and clicking 'Bevestigen'. Create a subject and a body (this will be sent to your customer) such as "Thank you for confirming. The DPA has been signed." Once it's saved, click on the newly created email template and look at the email template in the URL. It's shown in the URL like: &id=6 (the ID is 6, write that down)
-
-In FTP:
-
-- Upload this plugin to klantenpaneel/custom/plugins
-- In the file 'klantenpaneel/custom/plugins/dpa/config.php', change all 'replaceme' config variables to your fieldcode, template id and PDF filename.
-- Finally, upload the PDF containing your DPA to the folder docs/. Make sure the filename is exactly as entered in your config file.
-
-# Optional: Ask debtors to sign
 
 You can use the following code in your custom/views/header.phtml to show a message to all debtors that haven't signed the DPA yet in the `klantenpaneel`. Below code will check if the debtor has agreed to the DPA yet, and if not, a message will be shown.
 
@@ -48,7 +47,7 @@ You can use the following code in your custom/views/header.phtml to show a messa
     }
     ?>
 
-# Delete preference
+# Delete preference (for testing)
 
 If you're testing and you need to delete the custom field value for a debtor, you can either delete the value or use this SQL query:
 
