@@ -8,7 +8,7 @@ use Settings_Model;
 
 class Dpa_Controller extends \Base_Controller
 {
-    	protected $Dpa;
+	protected $Dpa;
 
 	public function __construct(Template $template)
 	{
@@ -71,10 +71,10 @@ class Dpa_Controller extends \Base_Controller
 		else {
                 	$template = "dpa";
             	}
-	}
+		}
 
-        $this->Template->parseMessage($this->Dpa);
-        $this->Template->show($template);
+        	$this->Template->parseMessage($this->Dpa);
+        	$this->Template->show($template);
 	}
 
 	// Show PDF (inline)
@@ -90,8 +90,8 @@ class Dpa_Controller extends \Base_Controller
         	@readfile($file);
    }
 
-    // Download PDF (attachment)
-    public function download() {
+    	// Download PDF (attachment)
+	public function download() {
         	$file = realpath(CUSTOMPATH . '/plugins/dpa/docs/' . $this->Dpa->config['pdffile']);
 
         	header('Content-type: application/pdf');
@@ -101,5 +101,5 @@ class Dpa_Controller extends \Base_Controller
         	header('Accept-Ranges: bytes');
 
         	@readfile($file);
-    }
+	}
 }
