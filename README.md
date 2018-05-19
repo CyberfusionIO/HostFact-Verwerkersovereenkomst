@@ -15,7 +15,7 @@ This HostFact plugin does three things:
 ![DPA plugin](https://i.imgur.com/wtMLjBs.png)
 
 
-# Installation steps
+# (English) Installation steps
 
 **HostFact:**
 1. Create a custom text field, for example 'DPA', in HostFact by navigation to /Pro/customclientfields.php?page=add. Write down your entered 'Veldcode'.
@@ -29,6 +29,21 @@ This HostFact plugin does three things:
 5. Finally, upload the PDF containing your DPA to the folder '/klantenpaneel/custom/plugins/dpa/docs/'. Make sure the filename is exactly as entered in your config file.
 
 *Note: if no PDF has been uploaded 'docs' folder and entered in the config file, visitors of the `klantenpaneel` will see a message saying that the DPA can be signed soon.*
+
+# (Dutch) Installatiestappen
+
+**HostFact:**
+1. Maak een custom text field, bijvoorbeeld 'DPA', aan in HostFact door te navigeren naar /Pro/customclientfields.php?page=add. Noteer de door jou ingevoerde veldcode.
+2. Creeër een email template door te navigeren naar /Pro/templates.php?page=email. Deze e-mail wordt naar de debiteur verstuurd na het accepteren. Zodra het email template is opgeslagen, vind je aan het einde van de URL het template ID. Bijvoorbeeld: "&id=6" (zonder ""). Noteer dit ID (in dit geval: 6).
+
+**FTP:**
+1. Download en pak de ZIP uit: https://github.com/CyberfusionNL/HostFact-Verwerkersovereenkomst/archive/master.zip
+2. Nadat de ZIP is uitgepakt: open de map 'klantenpaneel', en open vervolgens de map 'custom'.
+3. Upload de volledige map 'plugins' naar je eigen '/klantenpaneel/custom/' map.
+4. Open het configuratiebestand '/klantenpaneel/custom/plugins/dpa/config.php'. Wijzig de voorbeeldwaarden 'replaceme' met de correcte waarden.
+5. Upload de PDF met de DPA naar de map '/klantenpaneel/custom/plugins/dpa/docs/'. Bevestig dat de naam van het PDF-bestand correct is opgegeven in het configuratiebestand.
+
+*Let op: als er geen PDF is geüpload naar de map 'docs' en/of opgegeven in het configuratiebestand, dan zien debiteuren in het `klantenpaneel` een bericht dat de DPA binnenkort getekend kan worden.*
 
 # Optional: Ask debtors to sign
 Asking debtors to accept the DPA plugin throughout the HostFact `klantenpaneel`:
