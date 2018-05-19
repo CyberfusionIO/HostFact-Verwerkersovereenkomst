@@ -6,8 +6,8 @@ This HostFact plugin does three things:
 - additionally, as long as a debtor hasn't signed the DPA, a message can be shown in the `klantenpaneel`
 
 # Todo
-- [ ] Save date and IP address instead of 'yes' in custom field
-- [ ] Do error handling before sending confirmation email to the debtor
+- [x] Save date and IP address instead of 'yes' in custom field
+- [x] Do error handling before sending confirmation email to the debtor
 - [x] Create config file
 
 # Screenshots
@@ -23,19 +23,18 @@ Asking debtors to accept the DPA plugin throughout the HostFact `klantenpaneel`:
 # Install
 
 Note: this documentation, and the plugin, assumes `klantenpaneel` as the directory that the `klantenpaneel` is stored in. If you have it in a different directory, or in `/`, simply `grep` through the code and remove or alter `klantenpaneel` so that only `dpa/` or `/dpa` is left.
-Note 2: if no PDF has been uploaded called 'dpa.pdf' in the 'docs' folder, visitors of the `klantenpaneel` will see a message saying that the DPA can be signed soon.
+Note 2: if no PDF has been uploaded 'docs' folder and entered in the config file, visitors of the `klantenpaneel` will see a message saying that the DPA can be signed soon.
 
 In /Pro:
 
-- Create a custom field in HostFact on /Pro/customclientfields.php?page=add . Use 'DPA' in capitals (without '') as field code ('Veldcode');
+- Create a custom field in HostFact on /Pro/customclientfields.php?page=add . For example 'DPA' in capitals (without '') as name and field code ('Veldcode');
 - Create an email template by navigating to /Pro/templates.php?page=email, clicking 'Template toevoegen', selecting 'een standaard template' under "Wat voor template wilt u toevoegen?" and clicking 'Bevestigen'. Create a subject and a body (this will be sent to your customer) such as "Thank you for confirming. The DPA has been signed." Once it's saved, click on the newly created email template and look at the email template in the URL. It's shown in the URL like: &id=6 (the ID is 6, write that down)
 
 In FTP:
 
 - Upload this plugin to klantenpaneel/custom/plugins
-- In the file 'klantenpaneel/custom/plugins/dpa/config.php', change the $fieldid variable. The field ID is shown in the URL when you create or edit your custom field in /Pro (last number in the URL);
-- In the file 'klantenpaneel/custom/plugins/dpa/config.php', change the $templateid variable to the template ID for the email template that you created a few steps ago;
-- Finally, upload a PDF containing your DPA to the folder docs/ called 'dpa.pdf'
+- In the file 'klantenpaneel/custom/plugins/dpa/config.php', change all 'replaceme' config variables to your fieldcode, template id and PDF filename.
+- Finally, upload the PDF containing your DPA to the folder docs/. Make sure the filename is exactly as entered in your config file.
 
 # Optional: Ask debtors to sign
 
@@ -44,8 +43,8 @@ You can use the following code in your custom/views/header.phtml to show a messa
     <?php
     $dpa = new Dpa\Dpa_Model();
 
-    if ($dpa->getPreference() == false && strpos('https://' . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'], 'dpa') == false) {
-        echo '<div class="alert alert-warning" role="alert"><p>'.__('dpa not accepted').' <a href="/klantenpaneel/dpa">'.__('accept').'</a></p></div>';
+    if ($dpa->debtorDPAStatus() == '' && strpos('https://' . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'], __('dpa', 'url', 'dpa')) == false) {
+        echo '<div class="alert alert-warning" role="alert"><p>'.__('dpa not accepted').' <a href="/klantenpaneel/'.__('dpa', 'url', 'dpa').'/">'.__('accept').'</a></p></div>';
     }
     ?>
 
@@ -55,7 +54,7 @@ If you're testing and you need to delete the custom field value for a debtor, yo
 
     delete FROM `HostFact_Debtor_Custom_Values` WHERE ReferenceID = {DEBTORID} and FieldID = {FIELDID};
 
-Replace {DEBTORID} with the debtor ID (NOT the debtor username!) and {FIELDID} with the same field ID that you set in the code.
+Replace {DEBTORID} with the debtor ID (NOT the debtor code) and {FIELDID} with the same field ID that you set in the config.
 
 # Known bug
 
