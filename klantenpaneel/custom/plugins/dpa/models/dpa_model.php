@@ -26,9 +26,9 @@ class Dpa_Model extends \Base_Model
 		$this->Error = $this->Warning = $this->Success = array();
 		$this->db = new \Database_Model;
 
-        // Load config
-        include_once(CUSTOMPATH . '/plugins/dpa/config.php');
-        $this->config = isset($config) ? $config : [];
+        	// Load config
+        	include_once(CUSTOMPATH . '/plugins/dpa/config.php');
+        	$this->config = isset($config) ? $config : [];
 	}
 
     /**
@@ -37,25 +37,26 @@ class Dpa_Model extends \Base_Model
     * @return boolean
     */
 	public function isActivated()
-    {
-        // Config input entered.
-        if (isset($this->config['fieldname']) && $this->config['fieldname'] != 'replaceme' &&
-            isset($this->config['templateid']) && $this->config['templateid'] != 'replaceme' &&
-            isset($this->config['pdffile']) && $this->config['pdffile'] != 'replaceme'
-            ) {
+    	{
+		// Config input entered.
+		if (isset($this->config['fieldname']) && $this->config['fieldname'] != 'replaceme' &&
+			isset($this->config['templateid']) && $this->config['templateid'] != 'replaceme' &&
+			isset($this->config['pdffile']) && $this->config['pdffile'] != 'replaceme'
+         	) {
 
-            // Check if PDF exists
-            if (file_exists(CUSTOMPATH . '/plugins/dpa/docs/' . $this->config['pdffile'])) {
-                return true;
-            } else {
-                return false;
+		// Check if PDF exists
+		if (file_exists(CUSTOMPATH . '/plugins/dpa/docs/' . $this->config['pdffile'])) {
+			return true;
+		}
+		else {
+			return false;
             }
         }
 
         // No config input entered.
-        else {
-            return false;
-        }
+        	else {
+        	    return false;
+        	}
 	}
 
     /**
@@ -87,12 +88,12 @@ class Dpa_Model extends \Base_Model
 
 		$response = $this->APIRequest('debtor', 'sendemail', $debtorParams);
 
-		if($response['status'] == "success") {
+		if ($response['status'] == "success") {
 		    return true;
-        }
-        else {
+        	}
+        	else {
 		    return false;
-        }
+        	}
 	}
 
     /**
@@ -106,7 +107,7 @@ class Dpa_Model extends \Base_Model
         // Determine sign date
         $sign_date = date("d-m-Y H:i") . ' (' . $_SERVER['REMOTE_ADDR'] . ')';
 
-        // Edit Debtor custom field with sign date
+        // Edit debtor custom field with sign date
         $response = $this->APIRequest('debtor', 'edit', array('Identifier' => $debtor, 'CustomFields' => array($this->config['fieldname'] => $sign_date)));
 
         return $response;
@@ -124,15 +125,16 @@ class Dpa_Model extends \Base_Model
         // Process signing.
         if($response['status'] == "success") {
 
-            // Send email if an emailaddress is available. If error occurred, ignore (as if debtor has no emailaddress).
+            // Send email if an email address is available. If error occurred, ignore (as if debtor has no emailaddress).
             if (isset($response['debtor']['EmailAddress']) && $response['debtor']['EmailAddress'] != '') {
                 $this->sendEmail($debtor);
             }
+
             return true;
         }
 
         // Error processing signing.
-        else{
+        else {
             return false;
         }
     }
@@ -143,10 +145,10 @@ class Dpa_Model extends \Base_Model
     * @return string
     */
 	public function debtorDPAStatus() {
-        $debtor = $this->getCurrentDebtor();
-        $response = $this->APIRequest('debtor', 'show', array('Identifier' => $debtor));
+        	$debtor = $this->getCurrentDebtor();
+        	$response = $this->APIRequest('debtor', 'show', array('Identifier' => $debtor));
 
-        // If custom field is filled, debtor agreed already
+        	// If custom field is filled, debtor agreed already
 		if (isset($response['debtor']['CustomFields'][$this->config['fieldname']]) && $response['debtor']['CustomFields'][$this->config['fieldname']] != "") {
 			return $response['debtor']['CustomFields'][$this->config['fieldname']];
 		}
