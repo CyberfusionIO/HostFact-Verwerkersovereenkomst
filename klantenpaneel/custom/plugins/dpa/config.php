@@ -2,11 +2,11 @@
 
 $config = array();
 
-// Custom field code ('Veldcode' not the name)
+// Custom field code ('Veldcode', not the name)
 $config['fieldname'] = 'replaceme';
 
-// Set your email template ID (edit email template to see the ID in the URL)
+// Email template ID (edit email template to see the ID in the URL)
 $config['templateid'] = 'replaceme';
 
-// Filename of the PDF in the directory 'docs'
+// File name of the PDF in the directory 'docs' (including .pdf extension)
 $config['pdffile'] = 'replaceme';

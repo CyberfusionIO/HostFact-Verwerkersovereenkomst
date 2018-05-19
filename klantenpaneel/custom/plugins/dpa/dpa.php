@@ -30,7 +30,6 @@ class Dpa
 	{
 		$this->UrlString = __('dpa', 'url', __CLASS__);
 	}
-
 }
 
 return __NAMESPACE__;
