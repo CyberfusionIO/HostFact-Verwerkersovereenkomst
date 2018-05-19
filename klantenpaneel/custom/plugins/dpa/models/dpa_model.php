@@ -7,7 +7,6 @@ use Cache;
 
 class Dpa_Model extends \Base_Model
 {
-
 	public $Error;
 	public $Warning;
 	public $Success;
