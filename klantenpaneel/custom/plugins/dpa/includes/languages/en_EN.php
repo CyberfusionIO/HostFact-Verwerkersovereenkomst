@@ -1,6 +1,5 @@
 <?php
 
-
 $LANG = array();
 
 $LANG['mainmenu Dpa']                   = 'Data Processing Agreement';
