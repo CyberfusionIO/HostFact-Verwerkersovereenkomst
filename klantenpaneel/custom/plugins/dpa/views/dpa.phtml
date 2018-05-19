@@ -1,0 +1,27 @@
+<div class="col-xl-12 col-lg-8">
+   <div class="main-content p-a-2">
+        <?php
+            if (isset($message))
+            {
+                // if there are success/error/warning messages, they will be displayed here
+                echo $message;
+            }
+        ?>
+        <a href="dpa/download" target="_blank" class="h1-small pull-right hidden-xs-down"><i class="fa fa-download"></i>&nbsp;&nbsp;<?php echo __('download pdf')?></a>
+        <h1><?php echo __('Dpa title'); ?></h1>
+        <iframe src="dpa/pdf" frameborder="0" allowfullscreen style="position: relative; width:100%; height:400px;"><?php echo __('iframe error'); ?></iframe>
+        <br><br>
+        <h2><?php echo __('Dpa accept title'); ?></h2>
+        <form method="POST">
+                <label>
+                    <input type="checkbox" name="agree" required>&nbsp;&nbsp;<?php echo __('agree to dpa'); ?>
+                </label>
+                <br><br>
+                    <div class="form-group row">
+                        <div class="offset-sm-8 col-sm-4">
+                            <button type="submit" class="btn btn-primary pull-xs-right"><?php echo __('accept'); ?></button>
+                        </div>
+                    </div>
+        </form>
+    </div>
+</div>

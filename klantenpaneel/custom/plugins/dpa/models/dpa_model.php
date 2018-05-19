@@ -5,11 +5,6 @@ namespace Dpa;
 use Settings_Model;
 use Cache;
 
-// User has uploaded the module to a special klantenpaneel folder
-if (file_exists('../config.php')) {
-	include_once('../config.php');
-}
-
 class Dpa_Model extends \Base_Model
 {
 
@@ -19,25 +14,55 @@ class Dpa_Model extends \Base_Model
 
 	public $db;
 
+	public $config;
+
+    /**
+    * dpa::__construct()
+    *
+    * @return void
+    */
 	public function __construct()
 	{
 		$this->Error = $this->Warning = $this->Success = array();
 		$this->db = new \Database_Model;
-	}
-	
-	public function isActivated() {
-		if (file_exists('../docs/dpa.pdf')) {
-			return true;
-		}
-		else {
-			return false;
-		}
+
+        // Load config
+        include_once(CUSTOMPATH . '/plugins/dpa/config.php');
+        $this->config = isset($config) ? $config : [];
 	}
 
-	/**
-	 * Get current Debtor identifier
-	 * @return int
-	 */
+    /**
+    * Check if DPA plugin is active (if PDF doc exists).
+     *
+    * @return boolean
+    */
+	public function isActivated()
+    {
+        // Config input entered.
+        if (isset($this->config['fieldname']) && $this->config['fieldname'] != 'replaceme' &&
+            isset($this->config['templateid']) && $this->config['templateid'] != 'replaceme' &&
+            isset($this->config['pdffile']) && $this->config['pdffile'] != 'replaceme'
+            ) {
+
+            // Check if PDF exists
+            if (file_exists(CUSTOMPATH . '/plugins/dpa/docs/' . $this->config['pdffile'])) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        // No config input entered.
+        else {
+            return false;
+        }
+	}
+
+    /**
+    * Get current Debtor identifier.
+     *
+    * @return int
+    */
 	public function getCurrentDebtor()
 	{
 		$debtor_model = new \Debtor_Model();
@@ -48,44 +73,86 @@ class Dpa_Model extends \Base_Model
 
 		return $debtor_model->Identifier;
 	}
-	
+
+    /**
+    * Send email to Debtor if successfully agreed.
+     *
+    * @return boolean
+    */
 	public function sendEmail($debtorid) {		
 		$debtorParams = array(
 			'Identifier'	=> $debtorid,
-			'TemplateID'	=> $templateid,
+			'TemplateID'	=> $this->config['templateid'],
 		);
 
 		$response = $this->APIRequest('debtor', 'sendemail', $debtorParams);
 
-		return $response;
+		if($response['status'] == "success") {
+		    return true;
+        }
+        else {
+		    return false;
+        }
 	}
 
-	public function updatePreference() {
-		$debtor = $this->getCurrentDebtor();
+    /**
+     * Process signing
+     *
+     * @param int $debtor
+     * @param boolean $signing
+     * @return array
+     */
+    public function processSignDate($debtor) {
+        // Determine sign date
+        $sign_date = date("d-m-Y H:i") . ' (' . $_SERVER['REMOTE_ADDR'] . ')';
 
-		$response = $this->APIRequest('debtor', 'edit', array('Identifier' => $debtor, 'CustomFields' => array('DPA' => 'yes')));
+        // Edit Debtor custom field with sign date
+        $response = $this->APIRequest('debtor', 'edit', array('Identifier' => $debtor, 'CustomFields' => array($this->config['fieldname'] => $sign_date)));
 
-		$this->sendEmail($debtor);
+        return $response;
+    }
 
-		return $response;
-	}
+    /**
+     * Edit Debtor with DPA accept date.
+     *
+     * @return boolean
+     */
+    public function updatePreference() {
+        $debtor = $this->getCurrentDebtor();
+        $response = $this->processSignDate($debtor, true);
 
-	public function checkExists($debtor) {
-		$query = "SELECT Value FROM `HostFact_Debtor_Custom_Values` WHERE ReferenceID = :debtorid and FieldID = :fieldid";
-		$pdo = $this->db->prepare($query);
-		$pdo->bindParam(':debtorid', $debtor);
-		$pdo->bindParam(':fieldid', $fieldid);
-		$pdo->execute();
-		// true = result found
-		if ($pdo->rowCount() > 0) {
-			return true;
+        // Process signing.
+        if($response['status'] == "success") {
+
+            // Send email if an emailaddress is available. If error occurred, ignore (as if debtor has no emailaddress).
+            if (isset($response['debtor']['EmailAddress']) && $response['debtor']['EmailAddress'] != '') {
+                $this->sendEmail($debtor);
+            }
+            return true;
+        }
+
+        // Error processing signing.
+        else{
+            return false;
+        }
+    }
+
+    /**
+    * Retrieve debtor DPA info.
+     *
+    * @return string
+    */
+	public function debtorDPAStatus() {
+        $debtor = $this->getCurrentDebtor();
+        $response = $this->APIRequest('debtor', 'show', array('Identifier' => $debtor));
+
+        // If custom field is filled, debtor agreed already
+		if (isset($response['debtor']['CustomFields'][$this->config['fieldname']]) && $response['debtor']['CustomFields'][$this->config['fieldname']] != "") {
+			return $response['debtor']['CustomFields'][$this->config['fieldname']];
 		}
 		else {
-			return false;
+			return '';
 		}
 	}
 
-	public function getPreference() {
-		return $this->checkExists($this->getCurrentDebtor());
-	}
 }
