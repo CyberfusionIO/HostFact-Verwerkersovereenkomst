@@ -1,36 +1,34 @@
 # Description
 
 This HostFact plugin does three things:
-- your debtors are able to agree to the DPA (verwerkersovereenkomst) created by your company in the HostFact `klantenpaneel`;
-- once the debtor has accepted the DPA, an email will be sent via HostFact;
-- additionally, as long as a debtor hasn't signed the DPA, a message can be shown in the `klantenpaneel`
+- your debtors are able to agree to your DPA (verwerkersovereenkomst) in the HostFact `klantenpaneel`;
+- once the debtor has accepted the DPA, a confirmation email will be sent via HostFact;
+- (optional) as long as a debtor hasn't signed the DPA, a message can be shown in the `klantenpaneel`
 
 # Todo
 - [x] Save date and IP address instead of 'yes' in custom field
 - [x] Do error handling before sending confirmation email to the debtor
 - [x] Create config file
 
-# Screenshots
-
-Plugin:
+# Screenshot
 
 ![DPA plugin](https://i.imgur.com/wtMLjBs.png)
 
 
 # Installation steps
 
-HostFact:
+**HostFact:**
 1. Create a custom text field, for example 'DPA', in HostFact by navigation to /Pro/customclientfields.php?page=add. Write down your entered 'Veldcode'.
 2. Create an email template by navigating to /Pro/templates.php?page=email. This email will be send to your debtor after agreeing. Once it's saved, click on the newly created email template. In the URL you find the template id. It's shown in the URL like: &id=6. The ID is 6, write that down.
 
-FTP:
+**FTP:**
 1. Download and unpack the ZIP: https://github.com/CyberfusionNL/HostFact-Verwerkersovereenkomst/archive/master.zip
 2. After unpacking the ZIP click on the folder 'klantenpaneel', continue clicking on the folder 'custom'.
 3. Upload the complete 'plugins' folder to your your own '/klantenpaneel/custom/' directory on your server.
 4. Open the config file: '/klantenpaneel/custom/plugins/dpa/config.php'. Change all 'replaceme' by the correct value.
 5. Finally, upload the PDF containing your DPA to the folder '/klantenpaneel/custom/plugins/dpa/docs/'. Make sure the filename is exactly as entered in your config file.
 
-Note 2: if no PDF has been uploaded 'docs' folder and entered in the config file, visitors of the `klantenpaneel` will see a message saying that the DPA can be signed soon.
+*Note: if no PDF has been uploaded 'docs' folder and entered in the config file, visitors of the `klantenpaneel` will see a message saying that the DPA can be signed soon.*
 
 # Optional: Ask debtors to sign
 Asking debtors to accept the DPA plugin throughout the HostFact `klantenpaneel`:
@@ -47,7 +45,7 @@ You can use the following code in your custom/views/header.phtml to show a messa
     }
     ?>
 
-# Delete preference (for testing)
+# Delete DPA preference (for testing)
 
 If you're testing and you need to delete the custom field value for a debtor, you can either delete the value or use this SQL query:
 
