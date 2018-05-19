@@ -23,4 +23,4 @@ $LANG['agree to dpa']                   = 'Ik ga akkoord met de verwerkersoveree
 $LANG['download pdf']                   = 'Download PDF';
 $LANG['download pdf here']              = 'Klik hier om de verwerkersovereenkomst in PDF te downloaden.';
 $LANG['accept']                         = 'Accepteer overeenkomst';
-$LANG['dpa accepted on date with ip']   = 'U heeft de verwerkersovereenkomst al geaccepteerd op %s.';
+$LANG['dpa accepted on date with ip']   = 'U heeft de verwerkersovereenkomst geaccepteerd op %s.';
