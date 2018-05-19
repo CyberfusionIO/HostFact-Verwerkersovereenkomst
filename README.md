@@ -51,7 +51,7 @@ You can use the following code in your custom/views/header.phtml to show a messa
     <?php
     $dpa = new Dpa\Dpa_Model();
 
-    if ($dpa->debtorDPAStatus() == '' && strpos('https://' . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'], __('dpa', 'url', 'dpa')) == false) {
+    if ($dpa->debtorDPAStatus() == '' && strpos($_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'], __('dpa', 'url', 'dpa')) == false) {
         echo '<div class="alert alert-warning" role="alert"><p>'.__('dpa not accepted').' <a href="/klantenpaneel/'.__('dpa', 'url', 'dpa').'/">'.__('accept').'</a></p></div>';
     }
     ?>
