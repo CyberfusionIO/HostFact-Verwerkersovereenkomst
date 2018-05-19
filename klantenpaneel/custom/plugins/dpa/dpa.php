@@ -31,17 +31,6 @@ class Dpa
 		$this->UrlString = __('dpa', 'url', __CLASS__);
 	}
 
-	function activatePlugin()
-	{
-		// User has uploaded the module to a special 'klantenpaneel' folder or root folder
-		if (file_exists('config.php')) {
-			return TRUE;
-		}
-
-		// User has not uploaded the config.php at all...
-		return FALSE;
-	}
-
 }
 
 return __NAMESPACE__;
