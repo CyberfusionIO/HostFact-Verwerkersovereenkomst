@@ -48,6 +48,8 @@ Asking debtors to accept the DPA plugin throughout the HostFact `klantenpaneel`:
 
 You can use the following code in your custom/views/header.phtml to show a message to all debtors that haven't signed the DPA yet in the `klantenpaneel`. Below code will check if the debtor has agreed to the DPA yet, and if not, a message will be shown.
 
+*Note*: this code is not working at the moment, because it relies on some variables only passed by HostFact in the `dpa` view. Will try to fix...
+
     <?php
     $dpa = new Dpa\Dpa_Model();
 
