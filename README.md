@@ -41,7 +41,7 @@ This HostFact plugin does three things:
 
 *Let op: als er geen PDF is geüpload naar de map 'docs' en/of opgegeven in het configuratiebestand, dan zien debiteuren in het `klantenpaneel` een bericht dat de DPA binnenkort getekend kan worden.*
 
-# Optional: Ask debtors to sign
+<!--# Optional: Ask debtors to sign
 Asking debtors to accept the DPA plugin throughout the HostFact `klantenpaneel`:
 
 ![Asking debtors to accept](https://i.imgur.com/LX3OR9A.png)
@@ -56,7 +56,7 @@ You can use the following code in your custom/views/header.phtml to show a messa
     if ($dpa->debtorDPAStatus() == '' && strpos($_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'], __('dpa', 'url', 'dpa')) == false) {
         echo '<div class="alert alert-warning" role="alert"><p>'.__('dpa not accepted').' <a href="/klantenpaneel/'.__('dpa', 'url', 'dpa').'/">'.__('accept').'</a></p></div>';
     }
-    ?>
+    ?>-->
 
 # Delete DPA preference (for testing)
 
