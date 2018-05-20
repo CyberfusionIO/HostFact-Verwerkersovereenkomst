@@ -14,7 +14,7 @@ This HostFact plugin does three things:
 # (English) Installation steps
 
 **HostFact:**
-1. Create a custom text field, called 'DPA' for example, in HostFact by heading to /Pro/customclientfields.php?page=add. Write down the 'Veldcode' you entered.
+1. Create a custom text field, called 'DPA' for example, in HostFact by heading to /Pro/customclientfields.php?page=add. Tick 'Debtor' on the right. Write down the 'Veldcode' you entered.
 2. Create an email template by navigating to /Pro/templates.php?page=email. This email will be sent to your debtor after they have agreed to the DPA. Once it's saved, click on the newly created email template. In the URL you find the template ID at the end. It's shown in the URL like: &id=6. In this case, the ID is 6, write that down.
 
 **FTP:**
@@ -29,7 +29,7 @@ This HostFact plugin does three things:
 # (Dutch) Installatiestappen
 
 **HostFact:**
-1. Maak een custom text field, bijvoorbeeld genaamd 'DPA', aan in HostFact door te navigeren naar /Pro/customclientfields.php?page=add. Noteer de door jou ingevoerde veldcode.
+1. Maak een custom text field, bijvoorbeeld genaamd 'DPA', aan in HostFact door te navigeren naar /Pro/customclientfields.php?page=add. Zet een vinkje bij 'Debiteur' onder 'Gebruiken bij' (rechts). Noteer de door jou ingevoerde veldcode.
 2. Creeër een email template door te navigeren naar /Pro/templates.php?page=email. Deze e-mail wordt naar de debiteur verstuurd na het accepteren. Zodra het email template is opgeslagen, vind je aan het einde van de URL het template ID. Bijvoorbeeld: "&id=6" (zonder ""). Het ID is in dit geval 6. Noteer deze.
 
 **FTP:**
