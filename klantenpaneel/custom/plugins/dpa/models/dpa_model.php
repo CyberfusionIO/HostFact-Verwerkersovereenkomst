@@ -149,6 +149,11 @@ class Dpa_Model extends \Base_Model
 
         	// If custom field is filled, debtor agreed already
 		if (isset($response['debtor']['CustomFields'][$this->config['fieldname']]) && $response['debtor']['CustomFields'][$this->config['fieldname']] != "") {
+			if ($response['debtor']['CustomFields'][$this->config['fieldname']] != 1) // This should return 1 if signed, 0 or empty if not signed
+				// or present
+			{
+				return '';
+			}
 			return $response['debtor']['CustomFields'][$this->config['fieldname']];
 		}
 		else {
