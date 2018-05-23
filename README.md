@@ -65,7 +65,3 @@ If you're testing and you need to delete the custom field value for a debtor, yo
     delete FROM `HostFact_Debtor_Custom_Values` WHERE ReferenceID = {DEBTORID} and FieldID = {FIELDID};
 
 Replace {DEBTORID} with the debtor ID (NOT the debtor code) and {FIELDID} with the same field ID that you set in the config.
-
-# Known bug
-
-When a user resets their password and logs in after doing so, the message above (under "Optional: Ask debtors to sign") is not shown, and the module says that the DPA has already been signed for that account. That is because the custom field for that debtor is created and we only check if the custom field was created; not what it contains. I'm not aware of any good method to fix that, currently.
