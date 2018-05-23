@@ -21,9 +21,9 @@ class Dpa_Controller extends \Base_Controller
 	{
 		if (isset($_GET['rt'])) {
 			$event = explode("/", $_GET['rt']);
-			if (isset($event[1]) AND $event[1]) {
+			if (isset($event[1])) {
 			    $this->{$event[1]}();
-			    exit();
+			    return;
 			}
 		}
 
@@ -44,7 +44,7 @@ class Dpa_Controller extends \Base_Controller
                 		$this->Dpa->Warning[] = __('already agreed');
                 		$template = "dpa.agreed";
             	}
-
+			
             	// Debtor agreed to the terms.
             	elseif (isset($_POST['agree'])) {
 			// Process successful.
