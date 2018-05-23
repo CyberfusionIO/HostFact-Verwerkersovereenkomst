@@ -22,8 +22,8 @@ class Dpa_Controller extends \Base_Controller
 		if (isset($_GET['rt'])) {
 			$event = explode("/", $_GET['rt']);
 			if (isset($event[1]) AND $event[1]) {
-				$this->{$event[1]}();
-				exit();
+			    $this->{$event[1]}();
+			    exit();
 			}
 		}
 
@@ -88,9 +88,9 @@ class Dpa_Controller extends \Base_Controller
         	header('Accept-Ranges: bytes');
 
         	@readfile($file);
-   	}
+   }
 
-	// Download PDF (attachment)
+    	// Download PDF (attachment)
 	public function download() {
         	$file = realpath(CUSTOMPATH . '/plugins/dpa/docs/' . $this->Dpa->config['pdffile']);
 
