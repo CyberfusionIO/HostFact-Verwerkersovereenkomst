@@ -151,9 +151,9 @@ class Dpa_Model extends \Base_Model
 		if (isset($response['debtor']['CustomFields'][$this->config['fieldname']]) && $response['debtor']['CustomFields'][$this->config['fieldname']] != "") {
 			if (strlen($response['debtor']['CustomFields'][$this->config['fieldname']] ) > 13) // Counting chars: 'dd-mm-yyyy ()'.
 			{
-				return '';
+				return $response['debtor']['CustomFields'][$this->config['fieldname']];
 			}
-			return $response['debtor']['CustomFields'][$this->config['fieldname']];
+			return '';
 		}
 		else {
 			return '';
