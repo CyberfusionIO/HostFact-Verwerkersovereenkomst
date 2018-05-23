@@ -1,5 +1,7 @@
 # Description
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/98af361f371045838b6beda783c6493c)](https://app.codacy.com/app/ik/HostFact-Verwerkersovereenkomst?utm_source=github.com&utm_medium=referral&utm_content=YWatchman/HostFact-Verwerkersovereenkomst&utm_campaign=badger)
+
 This HostFact plugin does three things:
 
 - your debtors are able to agree to your DPA (verwerkersovereenkomst) in the HostFact `klantenpaneel`;
