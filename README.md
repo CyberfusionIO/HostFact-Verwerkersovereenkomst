@@ -14,7 +14,7 @@ This HostFact plugin does three things:
 # (English) Installation steps
 
 **HostFact:**
-1. Create a custom text field, called 'DPA' for example, in HostFact by heading to /Pro/customclientfields.php?page=add. Write down the 'Veldcode' you entered.
+1. Create a custom text field, called 'DPA' for example, in HostFact by heading to /Pro/customclientfields.php?page=add. Tick 'Debtor' on the right. Write down the 'Veldcode' you entered.
 2. Create an email template by navigating to /Pro/templates.php?page=email. This email will be sent to your debtor after they have agreed to the DPA. Once it's saved, click on the newly created email template. In the URL you find the template ID at the end. It's shown in the URL like: &id=6. In this case, the ID is 6, write that down.
 
 **FTP:**
@@ -29,7 +29,7 @@ This HostFact plugin does three things:
 # (Dutch) Installatiestappen
 
 **HostFact:**
-1. Maak een custom text field, bijvoorbeeld genaamd 'DPA', aan in HostFact door te navigeren naar /Pro/customclientfields.php?page=add. Noteer de door jou ingevoerde veldcode.
+1. Maak een custom text field, bijvoorbeeld genaamd 'DPA', aan in HostFact door te navigeren naar /Pro/customclientfields.php?page=add. Zet een vinkje bij 'Debiteur' onder 'Gebruiken bij' (rechts). Noteer de door jou ingevoerde veldcode.
 2. Creeër een email template door te navigeren naar /Pro/templates.php?page=email. Deze e-mail wordt naar de debiteur verstuurd na het accepteren. Zodra het email template is opgeslagen, vind je aan het einde van de URL het template ID. Bijvoorbeeld: "&id=6" (zonder ""). Het ID is in dit geval 6. Noteer deze.
 
 **FTP:**
@@ -41,12 +41,14 @@ This HostFact plugin does three things:
 
 *Let op: als er geen PDF is geüpload naar de map 'docs' en/of opgegeven in het configuratiebestand, dan zien debiteuren in het `klantenpaneel` een bericht dat de DPA binnenkort getekend kan worden.*
 
-# Optional: Ask debtors to sign
+<!--# Optional: Ask debtors to sign
 Asking debtors to accept the DPA plugin throughout the HostFact `klantenpaneel`:
 
 ![Asking debtors to accept](https://i.imgur.com/LX3OR9A.png)
 
 You can use the following code in your custom/views/header.phtml to show a message to all debtors that haven't signed the DPA yet in the `klantenpaneel`. Below code will check if the debtor has agreed to the DPA yet, and if not, a message will be shown.
+
+*Note*: this code is not working at the moment, because it relies on some variables only passed by HostFact in the `dpa` view. Will try to fix...
 
     <?php
     $dpa = new Dpa\Dpa_Model();
@@ -54,7 +56,7 @@ You can use the following code in your custom/views/header.phtml to show a messa
     if ($dpa->debtorDPAStatus() == '' && strpos($_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'], __('dpa', 'url', 'dpa')) == false) {
         echo '<div class="alert alert-warning" role="alert"><p>'.__('dpa not accepted').' <a href="/klantenpaneel/'.__('dpa', 'url', 'dpa').'/">'.__('accept').'</a></p></div>';
     }
-    ?>
+    ?>-->
 
 # Delete DPA preference (for testing)
 

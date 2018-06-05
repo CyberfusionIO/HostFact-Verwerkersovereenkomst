@@ -88,9 +88,9 @@ class Dpa_Controller extends \Base_Controller
         	header('Accept-Ranges: bytes');
 
         	@readfile($file);
-   }
+   	}
 
-    	// Download PDF (attachment)
+	// Download PDF (attachment)
 	public function download() {
         	$file = realpath(CUSTOMPATH . '/plugins/dpa/docs/' . $this->Dpa->config['pdffile']);
 
