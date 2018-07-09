@@ -11,8 +11,6 @@ class Dpa_Model extends \Base_Model
     public $Warning;
     public $Success;
 
-    public $db;
-
     public $config;
 
     /**
@@ -23,7 +21,6 @@ class Dpa_Model extends \Base_Model
     public function __construct()
     {
         $this->Error = $this->Warning = $this->Success = array();
-        $this->db = new \Database_Model;
 
         // Load config
         include_once(CUSTOMPATH . '/plugins/dpa/config.php');
