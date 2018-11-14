@@ -41,22 +41,26 @@ This HostFact plugin does three things:
 
 *Let op: als er geen PDF is geüpload naar de map 'docs' en/of opgegeven in het configuratiebestand, dan zien debiteuren in het `klantenpaneel` een bericht dat de DPA binnenkort getekend kan worden.*
 
-<!--# Optional: Ask debtors to sign
+# Optional: Ask debtors to sign
 Asking debtors to accept the DPA plugin throughout the HostFact `klantenpaneel`:
 
 ![Asking debtors to accept](https://i.imgur.com/LX3OR9A.png)
 
 You can use the following code in your custom/views/header.phtml to show a message to all debtors that haven't signed the DPA yet in the `klantenpaneel`. Below code will check if the debtor has agreed to the DPA yet, and if not, a message will be shown.
 
-*Note*: this code is not working at the moment, because it relies on some variables only passed by HostFact in the `dpa` view. Will try to fix...
-
     <?php
-    $dpa = new Dpa\Dpa_Model();
+    require_once(CUSTOMPATH . '/plugins/dpa/config.php');
+    require_once(CUSTOMPATH . '/plugins/dpa/models/dpa_model.php');
 
-    if ($dpa->debtorDPAStatus() == '' && strpos($_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'], __('dpa', 'url', 'dpa')) == false) {
-        echo '<div class="alert alert-warning" role="alert"><p>'.__('dpa not accepted').' <a href="/klantenpaneel/'.__('dpa', 'url', 'dpa').'/">'.__('accept').'</a></p></div>';
-    }
-    ?>-->
+    $dpa = new \Dpa\Dpa_Model();
+    global $config;
+    ?>
+
+    <?php if ($dpa->debtorDPAStatus($config)): ?>
+      <div class="box box-warning">
+        Your content
+      </div>
+    <?php endif; ?>
 
 # Delete DPA preference (for testing)
 
@@ -67,5 +71,4 @@ If you're testing and you need to delete the custom field value for a debtor, yo
 Replace {DEBTORID} with the debtor ID (NOT the debtor code) and {FIELDID} with the same field ID that you set in the config.
 
 # Known bug
-
-When a user resets their password and logs in after doing so, the message above (under "Optional: Ask debtors to sign") is not shown, and the module says that the DPA has already been signed for that account. That is because the custom field for that debtor is created and we only check if the custom field was created; not what it contains. I'm not aware of any good method to fix that, currently.
+~~When a user resets their password and logs in after doing so, the message above (under "Optional: Ask debtors to sign") is not shown, and the module says that the DPA has already been signed for that account. That is because the custom field for that debtor is created and we only check if the custom field was created; not what it contains. I'm not aware of any good method to fix that, currently.~~

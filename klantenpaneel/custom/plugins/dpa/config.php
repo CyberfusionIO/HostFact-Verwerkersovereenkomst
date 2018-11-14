@@ -1,5 +1,5 @@
 <?php
-
+global $config;
 $config = array();
 
 // Custom field code ('Veldcode', not the name)

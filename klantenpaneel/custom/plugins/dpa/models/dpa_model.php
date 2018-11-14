@@ -79,7 +79,7 @@ class Dpa_Model extends \Base_Model
 	*
 	* @return boolean
 	*/
-	public function sendEmail($debtorid) {		
+	public function sendEmail($debtorid) {
 		$debtorParams = array(
 			'Identifier'	=> $debtorid,
 			'TemplateID'	=> $this->config['templateid'],
@@ -139,20 +139,23 @@ class Dpa_Model extends \Base_Model
 	}
 
 	/**
-	* Retrieve debtor DPA info.
-	*
-	* @return string
-	*/
-	public function debtorDPAStatus() {
-		$debtor = $this->getCurrentDebtor();
-		$response = $this->APIRequest('debtor', 'show', array('Identifier' => $debtor));
+	 * Retrieve debtor DPA info.
+	 * Hotfix by YWatchman <YWatchman@cyberfusion.nl>
+	 *
+	 * @return string
+	 */
+	public function debtorDPAStatus($config = null)
+	{
+			$debtor = $this->getCurrentDebtor();
+			$response = $this->APIRequest('debtor', 'show', array('Identifier' => $debtor));
 
-        	// If custom field is filled, debtor agreed already
-		if (isset($response['debtor']['CustomFields'][$this->config['fieldname']]) && $response['debtor']['CustomFields'][$this->config['fieldname']] != "") {
-			return $response['debtor']['CustomFields'][$this->config['fieldname']];
-		}
-		else {
-			return '';
-		}
+			$this->config = $config != null ? $config : $this->config;
+
+			// If custom field is filled, debtor agreed already
+			if ( isset($response['debtor']['CustomFields'][$this->config['fieldname']]) && $response['debtor']['CustomFields'][$this->config['fieldname']] != "" ) {
+					return $response['debtor']['CustomFields'][$this->config['fieldname']];
+			} else {
+					return '';
+			}
 	}
 }
