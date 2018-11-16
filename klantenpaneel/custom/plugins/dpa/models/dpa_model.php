@@ -47,9 +47,7 @@ class Dpa_Model extends \Base_Model
 		if (file_exists(CUSTOMPATH . '/plugins/dpa/docs/' . $this->config['pdffile'])) {
 			return true;
 		}
-		else {
-			return false;
-            }
+		return false;
         }
 
         // No config input entered.
@@ -90,9 +88,7 @@ class Dpa_Model extends \Base_Model
 		if ($response['status'] == "success") {
 		    return true;
         	}
-        	else {
-		    return false;
-        	}
+		return false;
 	}
 
 	/**
@@ -133,9 +129,7 @@ class Dpa_Model extends \Base_Model
         	}
 
         	// Error processing signing.
-        	else {
-            		return false;
-        	}
+            	return false;
 	}
 
 	/**
