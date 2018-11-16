@@ -146,16 +146,15 @@ class Dpa_Model extends \Base_Model
 	 */
 	public function debtorDPAStatus($config = null)
 	{
-			$debtor = $this->getCurrentDebtor();
-			$response = $this->APIRequest('debtor', 'show', array('Identifier' => $debtor));
+		$debtor = $this->getCurrentDebtor();
+		$response = $this->APIRequest('debtor', 'show', array('Identifier' => $debtor));
 
-			$this->config = $config != null ? $config : $this->config;
+		$this->config = $config != null ? $config : $this->config;
 
-			// If custom field is filled, debtor agreed already
-			if ( isset($response['debtor']['CustomFields'][$this->config['fieldname']]) && $response['debtor']['CustomFields'][$this->config['fieldname']] != "" ) {
-					return $response['debtor']['CustomFields'][$this->config['fieldname']];
-			} else {
-					return '';
-			}
+		// If custom field is filled, debtor agreed already
+		if ( isset($response['debtor']['CustomFields'][$this->config['fieldname']]) && $response['debtor']['CustomFields'][$this->config['fieldname']] != "" ) {
+			return $response['debtor']['CustomFields'][$this->config['fieldname']];
+		}
+		return '';
 	}
 }
