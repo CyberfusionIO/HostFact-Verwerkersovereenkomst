@@ -47,9 +47,7 @@ class Dpa_Model extends \Base_Model
 		if (file_exists(CUSTOMPATH . '/plugins/dpa/docs/' . $this->config['pdffile'])) {
 			return true;
 		}
-		else {
-			return false;
-            }
+		return false;
         }
 
         // No config input entered.
@@ -79,7 +77,7 @@ class Dpa_Model extends \Base_Model
 	*
 	* @return boolean
 	*/
-	public function sendEmail($debtorid) {		
+	public function sendEmail($debtorid) {
 		$debtorParams = array(
 			'Identifier'	=> $debtorid,
 			'TemplateID'	=> $this->config['templateid'],
@@ -90,9 +88,7 @@ class Dpa_Model extends \Base_Model
 		if ($response['status'] == "success") {
 		    return true;
         	}
-        	else {
-		    return false;
-        	}
+		return false;
 	}
 
 	/**
@@ -133,26 +129,26 @@ class Dpa_Model extends \Base_Model
         	}
 
         	// Error processing signing.
-        	else {
-            		return false;
-        	}
+            	return false;
 	}
 
 	/**
-	* Retrieve debtor DPA info.
-	*
-	* @return string
-	*/
-	public function debtorDPAStatus() {
+	 * Retrieve debtor DPA info.
+	 * Hotfix by YWatchman <YWatchman@cyberfusion.nl>
+	 *
+	 * @return string
+	 */
+	public function debtorDPAStatus($config = null)
+	{
 		$debtor = $this->getCurrentDebtor();
 		$response = $this->APIRequest('debtor', 'show', array('Identifier' => $debtor));
 
-        	// If custom field is filled, debtor agreed already
-		if (isset($response['debtor']['CustomFields'][$this->config['fieldname']]) && $response['debtor']['CustomFields'][$this->config['fieldname']] != "") {
+		$this->config = $config != null ? $config : $this->config;
+
+		// If custom field is filled, debtor agreed already
+		if ( isset($response['debtor']['CustomFields'][$this->config['fieldname']]) && $response['debtor']['CustomFields'][$this->config['fieldname']] != "" ) {
 			return $response['debtor']['CustomFields'][$this->config['fieldname']];
 		}
-		else {
-			return '';
-		}
+		return '';
 	}
 }
